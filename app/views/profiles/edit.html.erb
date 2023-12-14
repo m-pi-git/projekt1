@@ -1,0 +1,20 @@
+<h1>Edit Your Profile</h1>
+
+<%= form_for @profile, url: profile_path, method: :patch do |f| %>
+  <p><strong>Student Index:</strong> <%= @profile.student_index %></p>
+  <p>
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </p>
+  <p>
+    <%= f.label :surname %><br>
+    <%= f.text_field :surname %>
+  </p>
+  <p><strong>Email:</strong> <%= @profile.email %></p>
+
+  <p>
+    <%= f.submit %>
+  </p>
+<% end %>
+
+<%= link_to 'Back', profile_path %>

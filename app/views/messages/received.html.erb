@@ -1,0 +1,9 @@
+<!-- app/views/messages/received.html.erb -->
+<h1>Received Messages</h1>
+
+<% @received_messages.each do |message| %>
+  <p><strong>Title:</strong> <%= message.title %></p>
+  <p><strong>Body:</strong> <%= message.body %></p>
+  <p><strong>Sender:</strong> <%= message.sender.email %></p>
+  <!-- Dodaj inne informacje, które chcesz wyświetlić -->
+<% end %>
