@@ -5,11 +5,12 @@ class ProfilesController < ApplicationController
   # GET /profiles or /profiles.json
   def index
     @profiles = Profile.all
+    @friends_profiles = current_user.friends.map(&:profile)
   end
 
   # GET /profiles/1 or /profiles/1.json
   def show
-    @profile = current_user.profile
+
   end
   # GET /profiles/new
   def new
@@ -60,13 +61,15 @@ class ProfilesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_profile
-      @profile = Profile.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_profile
+    @profile = Profile.find(params[:id])
+  end
 
-    # Only allow a list of trusted parameters through.
-    def profile_params
-      params.require(:profile).permit(:index, :name, :surname, :mail)
-    end
+  # Only allow a list of trusted parameters through.
+  def profile_params
+    params.require(:profile).permit(:index, :name, :surname, :mail)
+  end
+
+
 end

@@ -27,8 +27,9 @@ class MessagesController < ApplicationController
   end
 
 def new
-    @message = Message.new
-    @message.receiver_id = params[:receiver_id] if params[:receiver_id]
+  @message = Message.new
+  @message.receiver_email = params[:receiver_email]
+  @message.receiver_id = params[:receiver_id]
   end
 
   def create
@@ -36,17 +37,19 @@ def new
     @message.sender = current_user
     @message.sent = true
 
+    receiver = User.find_by(email: params[:message][:receiver_email])
+    @message.receiver = receiver if receiver
+
     respond_to do |format|
       if @message.save
         format.html { redirect_to @message, notice: 'Message was successfully created.' }
         format.json { render :show, status: :created, location: @message }
       else
-        format.html { render :new, status: :unprocessable_entity }
+        format.html { render :new }
         format.json { render json: @message.errors, status: :unprocessable_entity }
       end
     end
   end
-
   def received
     @received_messages = current_user.received_messages
   end
@@ -62,7 +65,6 @@ def new
 
   def destroy
     @message.destroy
-
     respond_to do |format|
       format.html { redirect_to messages_url, notice: 'Message was successfully destroyed.' }
       format.json { head :no_content }
@@ -76,9 +78,6 @@ def new
   end
 
   def message_params
-    params.require(:message).permit(:receiver_id, :title, :body)
+    params.require(:message).permit(:receiver_email, :title, :body)
   end
-
 end
-
-

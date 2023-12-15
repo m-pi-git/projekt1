@@ -1,0 +1,2 @@
+module FriendsrailsHelper
+end

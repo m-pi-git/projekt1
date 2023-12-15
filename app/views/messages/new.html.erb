@@ -1,6 +1,9 @@
 <%= form_with(model: @message, local: true) do |form| %>
-  <%= form.label :receiver_id, 'To:' %>
-  <%= form.select :receiver_id, options_for_select(User.all.map { |u| [u.email, u.id] }), {}, class: 'form-control' %>
+  <div class="field">
+    <%= form.label :receiver_email %>
+    <%= form.text_field :receiver_email, placeholder: 'Enter receiver\'s email' %>
+  </div>
+
 
   <%= form.label :title %>
   <%= form.text_field :title, class: 'form-control' %>
